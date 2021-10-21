@@ -13,16 +13,30 @@ class ViewController: UIViewController , UITableViewDelegate , UITableViewDataSo
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
+    let defaults = UserDefaults.standard // variable to store otp
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewOutlet.delegate = self
         tableViewOutlet.dataSource = self
+        if let nums = defaults.object(forKey: "myNumbers"){
+            numbers = nums as! [Int]
+        }
         for i in 0..<30 {
             numbers.append(i*5)
         }
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func saveAction(_ sender: UIBarButtonItem) {
+        defaults.set(numbers, forKey: "myNumbers")
+        
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numbers.count
